@@ -1,0 +1,14 @@
+<svg width="0" height="0">
+  <clipPath id="heroMask" clipPathUnits="objectBoundingBox">
+    <path d="
+      M0.1,0 Q0,0 0,0.1
+      V0.9
+      Q0,1 0.1,1
+      H0.9
+      Q1,1 1,0.9
+      V0.1
+      Q1,0 0.9,0
+      Z
+    " />
+  </clipPath>
+</svg>

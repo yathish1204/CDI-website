@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CDI - PPT View</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="navbar-container position-fixed w-100">
+      <div class="px-4 bg-light">
+        <nav class="navbar justify-content-between p-0">
+          <a class="navbar-brand">
+            <img
+              src="assets/img/cdi-logo.png"
+              alt="Brand Logo"
+              width="37px"
+              height="61px"
+          /></a>
+          <button type="button" class="btn btn-primary">Logout</button>
+        </nav>
+      </div>
+      <div
+        class="page-content d-flex justify-content-start align-items-start py-2 px-md-4 px-3 mt-2 py-md-0"
+      >
+        <i
+          onclick="window.location.href='dashboard.html'"
+          class="fs-2 bi-arrow-left-short c-pointer"
+        ></i>
+        <div>
+          <p class="mb-0 fs-5">Behind The Curtains</p>
+          <div class="d-flex align-content-center gap-2">
+            <p class="mb-0">Jun 18, 2024</p>
+            <i class="bi bi-dot"></i>
+            <p class="mb-0">49 Views</p>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Header Section -->
+
+    <section class="content-section py-1 position-fixed mt-12">
+      <div class="slider-section d-flex pe-0 pe-md-4 pt-4 pt-md-0">
+        <div
+          class="side-scrollbar d-none d-md-flex flex-column gap-2 pt-2 mb-5 pb-5 ps-4"
+        >
+          <div
+            class="ppt-card-container active d-flex justify-content-center align-content-start gap-2 rounded-3 py-2"
+          >
+            <p>1</p>
+            <img
+              src="assets/img/btc-ppt.png"
+              class="card-slide-img my-auto"
+              alt=""
+            />
+          </div>
+          <div
+            class="ppt-card-container d-flex justify-content-center align-content-center gap-2 rounded-3 py-2"
+          >
+            <p>2</p>
+
+            <img src="assets/img/4.png" class="card-slide-img" alt="" />
+          </div>
+          <div
+            class="ppt-card-container d-flex justify-content-center align-content-center gap-2 rounded-3 py-2"
+          >
+            <p>3</p>
+            <img src="assets/img/5.webp" class="card-slide-img" alt="" />
+          </div>
+          <div
+            class="ppt-card-container d-flex justify-content-center align-content-center gap-2 rounded-3 py-2"
+          >
+            <p>4</p>
+            <img src="assets/img/2.jpeg" class="card-slide-img" alt="" />
+          </div>
+          <div
+            class="ppt-card-container d-flex justify-content-center align-content-center gap-2 rounded-3 py-2"
+          >
+            <p>5</p>
+            <img src="assets/img/1.jpeg" class="card-slide-img" alt="" />
+          </div>
+        </div>
+        <div class="slider-active-img-container position-relative">
+          <img
+            src="./assets/img/3.png"
+            alt=""
+            class="slider-active-img object-fit-contain w-100 px-2"
+          />
+
+          <button
+            class="btn position-absolute top-50 start-0 translate-middle-y ms-2 border-0"
+            type="button"
+            aria-label="Previous"
+          >
+            <i class="bi bi-chevron-left fs-2"></i>
+          </button>
+
+          <button
+            class="btn position-absolute top-50 end-0 translate-middle-y me-2 border-0"
+            type="button"
+            aria-label="Next"
+          >
+            <i class="bi bi-chevron-right fs-2"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const cards = document.querySelectorAll(".ppt-card-container");
+      const activeImg = document.querySelector(".slider-active-img");
+      let currentIndex = 0;
+
+      function updateActiveImage(index) {
+        const selectedCard = cards[index];
+        const cardImg = selectedCard.querySelector("img");
+
+        if (cardImg && cardImg.src) {
+          activeImg.src = cardImg.src;
+
+          cards.forEach((card) => card.classList.remove("active"));
+          selectedCard.classList.add("active");
+        } else {
+          console.warn("No image found inside card at index", index);
+        }
+      }
+
+      document
+        .querySelector(".bi-chevron-right")
+        .addEventListener("click", () => {
+          currentIndex = (currentIndex + 1) % cards.length;
+          updateActiveImage(currentIndex);
+        });
+
+      document
+        .querySelector(".bi-chevron-left")
+        .addEventListener("click", () => {
+          currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+          updateActiveImage(currentIndex);
+        });
+
+      cards.forEach((card, index) => {
+        card.addEventListener("click", () => {
+          currentIndex = index;
+          updateActiveImage(currentIndex);
+        });
+      });
+
+      const initialCard = document.querySelector(".ppt-card-container.active");
+      if (initialCard) {
+        currentIndex = Array.from(cards).indexOf(initialCard);
+        updateActiveImage(currentIndex);
+      }
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
