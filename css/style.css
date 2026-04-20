@@ -221,6 +221,10 @@ h2 .happy.wave-underline{
     font-family: "Baskervville", serif;
 }
 
+/* .hero-container{
+    height: calc(100vh - 100px);
+} */
+
 .hero-content{
     bottom: 0%;
     right: 0;

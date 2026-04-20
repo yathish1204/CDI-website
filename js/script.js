@@ -62,21 +62,52 @@ gsap.registerPlugin(ScrollTrigger);
 //   });
 // });
 
+// document.addEventListener("DOMContentLoaded", () => {
+//   const video = document.querySelector(".bg-video");
+
+//   // Wait for video metadata
+//   video.addEventListener("loadedmetadata", () => {
+//     gsap.to(video, {
+//       currentTime: video.duration,
+//       ease: "none",
+//       scrollTrigger: {
+//         trigger: ".hero-container",
+//         start: "top 20%",
+//         end: "bottom 50%",
+//         scrub: true,
+//         // markers: true,
+//       },
+//     });
+//   });
+// });
+
+gsap.registerPlugin(ScrollTrigger);
+
 document.addEventListener("DOMContentLoaded", () => {
   const video = document.querySelector(".bg-video");
 
-  // Wait for video metadata
+  video.pause();
+  video.currentTime = 0;
+
   video.addEventListener("loadedmetadata", () => {
-    gsap.to(video, {
-      currentTime: video.duration,
-      ease: "none",
+    const duration = video.duration;
+
+    let tl = gsap.timeline({
       scrollTrigger: {
-        trigger: ".hero-container",
-        start: "top 10%",
-        end: "bottom 50%",
+        trigger: "#hero",
+        start: "top 0%",
+        end: "+=" + duration * 100,
         scrub: true,
+        pin: true,
+        anticipatePin: 1,
         // markers: true,
       },
+    });
+
+    // 🎥 Sync video with scroll
+    tl.to(video, {
+      currentTime: duration,
+      ease: "none",
     });
   });
 });
